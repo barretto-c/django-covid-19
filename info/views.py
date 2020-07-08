@@ -12,6 +12,10 @@ from info.models import CovidData
 
 from django.views.generic import ListView
 
+from django.contrib import admin
+
+admin.site.register(CovidData)
+
 def home(request):
     #return HttpResponse("Hello, Django!")
     return render(request, "info/home.html")
