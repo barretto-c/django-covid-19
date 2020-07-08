@@ -21,4 +21,6 @@ https://code.visualstudio.com/download
 4. Setup Environment (If you have not setup before)
 pip install -r requirements.txt 
 
-4. To run the code ```python manage.py runserver```
+5. To run the code ```python manage.py runserver```. The app should be available at http://127.0.0.1:8000/.
+
+
