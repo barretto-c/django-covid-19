@@ -34,6 +34,9 @@ home_list_view = views.HomeListView.as_view(
 
 urlpatterns = [
     path("", home_list_view, name="home"),
+    path("info/new_list",views.HomeListViewNew.as_view() , name="home-new"),
+    path("info/covid_create",views.CovidDataCreateView.as_view() , name="covid-new"),
+
     path('admin/', admin.site.urls),
 
     path("info/<region>", views.dashboard, name="dashboard"),

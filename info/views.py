@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 from info.forms import CovidDataForm
 from info.models import CovidData
 
-from django.views.generic import ListView
+from django.views.generic import ListView,CreateView
 
 from django.contrib import admin
 
@@ -28,7 +28,17 @@ class HomeListView(ListView):
         context = super(HomeListView, self).get_context_data(**kwargs)
         return context
 
-    
+
+class HomeListViewNew(ListView):
+    queryset = CovidData.objects.all()
+    template_name = "info/home_new.html"
+
+class CovidDataCreateView(CreateView):
+    model = CovidData
+    fields = ['fips', 'country_region', 'active_cases' ]
+    template_name = "info/covid_create.html"
+
+
 def about(request):
     return render(request, "info/about.html")
 

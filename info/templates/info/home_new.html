@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+<h2>NEW - Home page for the COVID-19 information.</h2>
+
+
+<table>
+    <th>
+        <td>ID</td>
+        <td>Country</td>
+    </th>
+{% for instance in object_list %}
+    <tr>
+        <td>{{instance.id}} <a href="{{instance.get_absolute_url}}">{{instance.id}}</a></td>
+        <td>{{instance.country_region}}</td>
+        
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
