@@ -3,5 +3,34 @@
     Home
 {% endblock %}
 {% block content %}
-<p>Home page for the COVID-19 information.</p>
+    <h2>Home page for the COVID-19 information.</h2>
+
+    {% if message_list %}
+        <table class="message_list">
+            <thead>
+            <tr>
+                <th>Country/Region</th>
+                <th>Province/State</th>
+                <th>Active Cases</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in message_list %}
+                <tr>
+                    <td>
+                        {{ message.country_region }}
+                    </td>
+                    <td>
+                        {{ message.province_state }}
+                    </td>
+                    <td>
+                        {{ message.active_cases }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No Data Found. Use the <a href="{% url 'logdata' %}">Log Data form</a>.</p>
+    {% endif %}
 {% endblock %}
