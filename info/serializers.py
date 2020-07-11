@@ -6,5 +6,4 @@ from info.models import CovidData
 class CovidDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = CovidData
-        fields = [ 'country_region', 'province_state', 'active_cases']
-        #fields = '__all__'
+        fields = '__all__'

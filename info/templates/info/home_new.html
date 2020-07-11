@@ -5,12 +5,12 @@
 {% block content %}
 <h2>Home page for the COVID-19 information.</h2>
 <table>
-    <th>
-        <td>Country</td>
-        <td>Province/State</td>
-        <td>Active Cases</td>
-        <td>fips</td>
-    </th>
+    <tr>
+        <th>Country</th>
+        <th>Province/State</th>
+        <th>Active Cases</th>
+        <th>fips</th>
+    </tr>
 {% for instance in object_list %}
     <tr>
         <td>{{instance.country_region}}</td>
