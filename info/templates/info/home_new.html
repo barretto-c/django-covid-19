@@ -3,19 +3,20 @@
     Home
 {% endblock %}
 {% block content %}
-<h2>NEW - Home page for the COVID-19 information.</h2>
-
-
+<h2>Home page for the COVID-19 information.</h2>
 <table>
     <th>
-        <td>ID</td>
         <td>Country</td>
+        <td>Province/State</td>
+        <td>Active Cases</td>
+        <td>fips</td>
     </th>
 {% for instance in object_list %}
     <tr>
-        <td>{{instance.id}} <a href="{{instance.get_absolute_url}}">{{instance.id}}</a></td>
         <td>{{instance.country_region}}</td>
-        
+        <td>{{instance.province_state}} </td>        
+        <td>{{instance.active_cases}} </td>        
+        <td>{{instance.fips}} </td>        
     </tr>
 {% endfor %}
 </table>

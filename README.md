@@ -6,6 +6,8 @@ Data Source: Data Repository by the Center for Systems Science and Engineering (
 Read More at
 https://towardsdatascience.com/5-datasets-about-covid-19-you-can-use-right-now-46307b1406a
 
+Note: To query the database use a tool that can query sqlite3, database file name is ```db.sqlite3```.
+
 1. Download and install Python 3.7.*
 
 2. Download and install Visual Studio Code (Optional)
@@ -31,3 +33,5 @@ pip install -r requirements.txt
 
 7. To perform CRUD setup user
 ``python manage.py createsuperuser --username=<username> --email=<email>``
+
+8. To run test cases ``manage.py test``.

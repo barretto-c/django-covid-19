@@ -1,14 +1,12 @@
 from django.urls import path
 from info import views
+from info.views import viewsets
 from info.models import CovidData
 
 #REST
 from django.conf.urls import url, include
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from rest_framework import routers, serializers, viewsets
-
-from django.contrib import admin
-
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -16,38 +14,39 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username', 'email', 'is_staff']
 
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['url', 'name']
+
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-
-home_list_view = views.HomeListView.as_view(
-    queryset=CovidData.objects.order_by(), 
-    context_object_name="message_list",
-    template_name="info/home.html",
-)
+router.register(r'groups', GroupViewSet)
+router.register(r'covid/data', views.CovidDataViewSet)
 
 urlpatterns = [
-    path("", home_list_view, name="home"),
-    path("info/new_list",views.HomeListViewNew.as_view() , name="home-new"),
-    path("info/covid_create",views.CovidDataCreateView.as_view() , name="covid-new"),
-
-    path('admin/', admin.site.urls),
-
-    path("info/<region>", views.dashboard, name="dashboard"),
+    # path("", home_list_view, name="home"),
+    path("",views.HomeListViewNew.as_view() , name="home-new"),
+    path("info/covid_createv2",views.CovidDataCreateViewV2.as_view() , name="covid-newv2"),
     
     path("info/about/", views.about, name="about"),
     path("info/contact/", views.contact, name="contact"),
 
     path("logdata/", views.logdata, name="logdata"),
     
-    #url(r'^', include(router.urls)),
-    url(r"^api/", include((router.urls, "rest_api"))),
+    url(r'^', include(router.urls)),
+    #url(r"^api/", include((router.urls, "rest_api"))),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))    
 
 ]

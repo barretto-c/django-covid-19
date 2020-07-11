@@ -2,42 +2,36 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse
-import re
 from datetime import datetime
 
-from django.shortcuts import redirect
 from info.forms import CovidDataForm
 from info.models import CovidData
 
 from django.views.generic import ListView,CreateView
 
-from django.contrib import admin
+from django import forms
 
-admin.site.register(CovidData)
-
-def home(request):
-    #return HttpResponse("Hello, Django!")
-    return render(request, "info/home.html")
-
-class HomeListView(ListView):
-    """Renders the home page, with data."""
-    model = CovidData
-
-    def get_context_data(self, **kwargs):
-        context = super(HomeListView, self).get_context_data(**kwargs)
-        return context
-
+#REST 
+from django.http import HttpResponse
+from django.shortcuts import redirect, get_object_or_404
+from rest_framework import status, viewsets
+from rest_framework.views import APIView
+from . serializers import CovidDataSerializer
 
 class HomeListViewNew(ListView):
     queryset = CovidData.objects.all()
     template_name = "info/home_new.html"
 
-class CovidDataCreateView(CreateView):
+class CovidDataCreateForm(forms.ModelForm):
+    class Meta:
+        model= CovidData
+        fields = '__all__'
+        #fields = ['country_region', 'province_state', 'fips',  'active_cases' ]
+        
+class CovidDataCreateViewV2(CreateView):
     model = CovidData
-    fields = ['fips', 'country_region', 'active_cases' ]
+    form_class = CovidDataCreateForm
     template_name = "info/covid_create.html"
-
 
 def about(request):
     return render(request, "info/about.html")
@@ -53,24 +47,13 @@ def logdata(request):
         if form.is_valid():
             message = form.save(commit=False)
             message.save()
-            return redirect("home")
+            return redirect("home-new")
     else:
         return render(request, "info/enter_data.html", {"form": form})
 
-
-def dashboard(request, region):
-    return render(
-        request,
-        'info/dashboard.html',
-        {
-            'region': region,
-            'date': datetime.now()
-        }
-    )
-
-# def dashboard(request, region):
-#     now = datetime.now()
-#     formatted_now = now.strftime("%A, %d %B, %Y at %X")
-
-#     content = "It's " + formatted_now
-#     return HttpResponse(content)
+class CovidDataViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = CovidData.objects.all()
+    serializer_class = CovidDataSerializer
