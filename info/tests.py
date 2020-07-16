@@ -2,6 +2,7 @@ from django.test import TestCase
 from info.models import CovidData
 
 from django.urls import reverse
+import json
 
 # Create your tests here.
 class CovidTestCase(TestCase):
@@ -42,5 +43,7 @@ class CovidTestCase(TestCase):
         response = self.client.get(reverse('home-new'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Home page for the COVID-19")
-        print("data")
-        
+
+    def test_logdata_create_page(self):
+        response = self.client.get(reverse('logdata'))
+        self.assertEqual(response.status_code, 200)
