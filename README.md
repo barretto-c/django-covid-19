@@ -10,28 +10,30 @@ Note: To query the database use a tool that can query sqlite3, database file nam
 
 1. Download and install Python 3.7.*
 
-2. Download and install Visual Studio Code (Optional)
+3. Download and install Visual Studio Code (Optional)
 https://code.visualstudio.com/download
 
-2. Create a Python Virtual Environment 
+4. Create a Python Virtual Environment 
     ```python -m venv env```
 
-3. Activate Python Environment
+5. Activate Python Environment
     Visual Studio Code:View Command Pallate:
     For VS Code use Command Palette ```Terminal: Create New Integrated Terminal```
         OR
   env\scripts\activate (Windows) OR (Linux/macOS)  source env/bin/activate 
     
-4. Setup Environment (If you have not setup before)
+6. Setup Environment (If you have not setup before)
 pip install -r requirements.txt 
 
-5. To run the code ```python manage.py runserver```. The app should be available at http://127.0.0.1:8000/.
+7. To run the code ```python manage.py runserver```. The app should be available at http://127.0.0.1:8000/.
 
-6. To Create/Modify the database use
+8. To Create/Modify the database use
 ```python manage.py makemigrations```
 ```python manage.py migrate```
 
-7. To perform CRUD setup user
+9. To perform CRUD setup user
 ``python manage.py createsuperuser --username=<username> --email=<email>``
 
-8. To run test cases ``manage.py test``.
+10. To run test cases ``manage.py test``.
+
+11. Added Github Actions to the project. This Automatically runs tests on the code base anytime code is checked into the master branch. ```https://github.com/barretto-c/django-covid-19/actions```.
